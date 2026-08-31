@@ -20,7 +20,7 @@
 
 <sup>1</sup> Politecnico di Torino &nbsp;&nbsp;
 <sup>2</sup> Miguel Hernández University of Elche &nbsp;&nbsp;
-<sup>3</sup> Valencian Graduate School and Research Network of AI
+<sup>3</sup> Valencian Graduate School of AI
 
 <p align="center">
   <img src="assets/FoundYou_teaser.png" alt="FoundYou teaser" width="100%">
@@ -36,6 +36,11 @@ Give FoundYou **one example of your object**: **segment** it in new images or **
 
 
 ## 🚀 Try Now - Interactive Demo
+
+
+
+https://github.com/user-attachments/assets/e27b1e17-5ae1-46f9-8eb5-5dad920b0781
+
 
 Experience FoundYou directly in your browser with our **[interactive Gradio demo](https://gmberton.github.io/demos-url/foundyou/)**! Upload an image, select your object, and segment it or retrieve similar items from a gallery of 100M images (no installation required).
 
