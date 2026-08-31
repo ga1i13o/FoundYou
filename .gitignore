@@ -1,0 +1,6 @@
+pretrain
+__pycache__
+output
+data
+.vscode
+*pkl

@@ -1,0 +1,4 @@
+sam2_version: small
+adaptformer_stages: [2, 3]
+channel_factor: 0.5
+obj_score: false
