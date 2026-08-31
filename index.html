@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FoundYou is a unified model for personalized segmentation and retrieval built on a frozen SAM 2 backbone.">
+  <meta name="keywords" content="FoundYou, personalized segmentation, personalized retrieval, SAM 2, computer vision, ECCV 2026">
+  <meta name="theme-color" content="#f5f7fd">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FoundYou: A Unified Model for Personalized Segmentation and Retrieval">
+  <meta property="og:description" content="Segment and retrieve the same physical object from one or more visual references.">
+  <meta property="og:image" content="assets/FoundYou_teaser.png">
+
+  <title>FoundYou: A Unified Model for Personalized Segmentation and Retrieval</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700|Noto+Sans:400,500,600,700|Castoro&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/index.css">
+</head>
+
+<body id="top">
+  <header class="hero">
+    <div class="hero-glow hero-glow-left" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-right" aria-hidden="true"></div>
+
+    <div class="page-container hero-content">
+      <h1 class="publication-title">
+        <span class="gradient-word">FoundYou</span><span class="title-separator">:</span>
+        <span class="title-rest">A Unified Model for Personalized Segmentation and Retrieval</span>
+      </h1>
+
+      <p class="venue-line">ECCV 2026</p>
+
+      <div class="publication-authors" aria-label="Authors">
+        <span class="author-block"><a href="https://scholar.google.com/citations?user=JXf_iToAAAAJ">Gabriele Trivigno</a></span>
+        <span class="author-separator">·</span>
+        <span class="author-block"><a href="https://scholar.google.com/citations?user=QXWedBkAAAAJ&amp;hl=es">Marcos Alfaro</a><sup>1,2</sup></span>
+        <span class="author-separator">·</span>
+        <span class="author-block"><a href="https://scholar.google.com/citations?user=W7lNKNsAAAAJ">Claudia Cuttano</a><sup>1</sup></span>
+        <span class="author-separator">·</span>
+        <span class="author-block"><a href="https://scholar.google.com/citations?user=pc_rMSMAAAAJ&amp;hl=en">Gabriele Berton</a></span>
+        <span class="author-separator">·</span>
+        <span class="author-block"><a href="https://scholar.google.com/citations?user=pFlS_NQAAAAJ&amp;hl=es">Luis Payá</a><sup>2,3</sup></span>
+        <span class="author-separator">·</span>
+        <span class="author-block"><a href="https://scholar.google.com/citations?user=cM3Iz_4AAAAJ">Carlo Masone</a><sup>1</sup></span>
+      </div>
+
+      <div class="affiliations" aria-label="Affiliations">
+        <span><sup>1</sup>Politecnico di Torino</span>
+        <span><sup>2</sup>Miguel Hernández University of Elche</span>
+        <span><sup>3</sup>Valencian Graduate School and Research Network of AI</span>
+      </div>
+
+      <div class="publication-links" aria-label="Project links">
+        <a class="project-button" href="#">
+          <span class="button-icon" aria-hidden="true">▤</span>
+          Paper
+        </a>
+        <a class="project-button" href="#">
+          <span class="button-icon" aria-hidden="true">⌘</span>
+          Code
+        </a>
+        <a class="project-button" href="#">
+          <span class="button-icon" aria-hidden="true">▧</span>
+          Poster
+        </a>
+        <a class="project-button" href="https://gmberton.github.io/demos-url/foundyou/">
+          <span class="button-icon" aria-hidden="true">▶</span>
+          Gradio Demo
+        </a>
+        <a class="project-button" href="#">
+          <span class="button-icon" aria-hidden="true">◉</span>
+          Colab
+        </a>
+      </div>
+
+      <p class="hero-subtitle">
+        Give FoundYou an example of your object. It can <strong>segment the same physical instance</strong>
+        in a new image or <strong>retrieve it from a large gallery</strong> with one compact model.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="section teaser-section" aria-labelledby="teaser-heading">
+      <div class="wide-container">
+        <h2 id="teaser-heading" class="sr-only">FoundYou overview</h2>
+        <figure class="figure-card teaser-card">
+          <a class="figure-link" href="assets/FoundYou_teaser.png" target="_blank" rel="noopener" aria-label="Open the FoundYou teaser at full resolution">
+            <img src="assets/FoundYou_teaser.png" alt="FoundYou segments a prompted handbag and retrieves the same handbag, with performance and speed comparisons." class="main-figure">
+          </a>
+          <figcaption>
+            <strong>One model, two personalized tasks.</strong> A visual prompt identifies an object; FoundYou then segments that exact instance in a target image or ranks gallery images by instance-level similarity.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="demo-heading">
+      <div class="wide-container">
+        <div class="section-heading centered-heading">
+          <span class="pill">Interactive Demo</span>
+          <h2 id="demo-heading">Try FoundYou with Gradio</h2>
+        </div>
+        <figure class="figure-card">
+          <video 
+            class="main-figure" 
+            controls 
+            autoplay
+            muted
+            loop
+            width="100%" 
+            style="border-radius: 12px; background: #f5f7fc;"
+            aria-label="FoundYou Gradio demo video">
+            <source src="assets/demo_foundyou_final.mp4" type="video/mp4">
+            <p>Your browser does not support the video tag. Please use a modern browser to view this demo.</p>
+          </video>
+          <figcaption>
+            Explore the interactive FoundYou demo powered by Gradio. Upload reference images and see segmentation and retrieval results.
+            <br><br>
+            <a href="https://gmberton.github.io/demos-url/foundyou/" class="project-button" style="display: inline-block; margin-top: 1rem;">
+              <span class="button-icon" aria-hidden="true">▶</span>
+              Launch Gradio Demo
+            </a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section soft-section" aria-labelledby="highlights-heading">
+      <div class="page-container">
+        <div class="section-heading centered-heading">
+          <span class="pill">At a glance</span>
+          <h2 id="highlights-heading">The same instance alignment drives both tasks</h2>
+        </div>
+
+        <div class="highlights-grid">
+          <article class="highlight-card card-blue">
+            <p class="card-kicker">Unified</p>
+            <h3>Segment and retrieve</h3>
+            <p>A shared SAM 2 representation produces either a dense segmentation mask or an image-level retrieval score.</p>
+          </article>
+          <article class="highlight-card card-lilac">
+            <p class="card-kicker">Promptable</p>
+            <h3>Mask, box, or point</h3>
+            <p>The frozen SAM 2 decoder preserves flexible prompting, reducing the annotation required to identify a reference object.</p>
+          </article>
+          <article class="highlight-card card-cyan">
+            <p class="card-kicker">Few-shot</p>
+            <h3>More views, better retrieval</h3>
+            <p>Multiple references are stored in the memory bank and jointly improve instance matching without retraining.</p>
+          </article>
+          <article class="highlight-card card-rose">
+            <p class="card-kicker">Efficient</p>
+            <h3>Built on SAM 2-small</h3>
+            <p>Only 5.9 M parameters are trained, yielding a 52 M-parameter model that runs at 90.2 images/s on an RTX 4090.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="abstract-heading">
+      <div class="narrow-container">
+        <div class="section-heading centered-heading">
+          <span class="pill">Motivation</span>
+          <h2 id="abstract-heading">Personalized segmentation and retrieval are the same matching problem</h2>
+        </div>
+
+        <div class="abstract-card">
+          <p>
+            Personalized segmentation localizes a particular physical object in a target image, while personalized retrieval ranks images that contain it. Although their outputs differ, both tasks require the same core ability: preserving object identity across unrelated images, backgrounds, viewpoints, and scales.
+          </p>
+          <p>
+            FoundYou starts from the instance-aware representations learned by Segment Anything 2 for video tracking. Lightweight feature adapters remove the model’s spatio-temporal continuity bias, while self-distillation preserves the spatial structure needed for accurate masks. The result is a unified framework that improves over <a class="inline-paper-link" href="https://arxiv.org/abs/2405.18025">PDM</a>, the prior unified approach, as well as task-specific methods, while keeping SAM 2 entirely frozen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft-section" aria-labelledby="method-heading">
+      <div class="wide-container">
+        <div class="section-heading centered-heading">
+          <span class="pill">Method</span>
+          <h2 id="method-heading">Repurposing SAM 2 memory across independent images</h2>
+          <p class="section-intro">
+            FoundYou stores a prompted reference object in the SAM 2 memory bank, aligns a target image to that memory, and decodes the shared representation for segmentation or retrieval.
+          </p>
+        </div>
+
+        <figure class="figure-card dark-figure">
+          <div class="figure-scroll">
+            <a class="figure-link" href="assets/foundyou_method.png" target="_blank" rel="noopener" aria-label="Open the FoundYou method diagram at full resolution">
+              <img src="assets/foundyou_method.png" alt="FoundYou method with a frozen SAM 2 backbone, AdaptFormer layers, a memory bank, and segmentation and retrieval decoders." class="main-figure detail-figure">
+            </a>
+          </div>
+          <p class="scroll-hint">Swipe horizontally to inspect the full diagram.</p>
+          <figcaption>
+            <strong>FoundYou overview.</strong> The prompted reference is encoded into the memory bank. Target features attend to that representation through frozen memory attention. The original SAM 2 segmentation decoder predicts a mask, while a lightweight retrieval decoder aggregates dense correspondences into a similarity score.
+          </figcaption>
+        </figure>
+
+        <div class="method-steps" aria-label="Method steps">
+          <article class="method-step">
+            <span class="step-number">01</span>
+            <div>
+              <h3>Adapt identity features</h3>
+              <p>AdaptFormer layers in the final image-encoder stages strengthen instance discrimination across unrelated scenes.</p>
+            </div>
+          </article>
+          <article class="method-step">
+            <span class="step-number">02</span>
+            <div>
+              <h3>Store the reference</h3>
+              <p>A point, box, or mask identifies the object; its features are encoded and stored in the memory bank.</p>
+            </div>
+          </article>
+          <article class="method-step">
+            <span class="step-number">03</span>
+            <div>
+              <h3>Decode either task</h3>
+              <p>The same memory-conditioned target features produce a segmentation mask or a retrieval score.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="qualitative-heading">
+      <div class="wide-container">
+        <div class="section-heading centered-heading">
+          <span class="pill">Qualitative results</span>
+          <h2 id="qualitative-heading">Retrieve first, segment the top result</h2>
+          <p class="section-intro">
+            FoundYou distinguishes the requested instance from visually similar hard negatives, then localizes that same instance using the shared representation.
+          </p>
+        </div>
+
+        <figure class="figure-card">
+          <div class="figure-scroll tall-detail-scroll">
+            <a class="figure-link" href="assets/foundyou_segment_and_retrieve.png" target="_blank" rel="noopener" aria-label="Open the qualitative results at full resolution">
+              <img src="assets/foundyou_segment_and_retrieve.png" alt="References, top-two retrieved examples with scores, hard negatives, and top-one personalized segmentation results." class="main-figure qualitative-figure">
+            </a>
+          </div>
+          <p class="scroll-hint">Swipe horizontally to inspect all examples.</p>
+          <figcaption>
+            For each reference image, the top two retrieved candidates receive high similarity scores, while visually related but non-matching objects are rejected. The final row segments the top-ranked image using the same reference prompt.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section soft-section" aria-labelledby="fewshot-heading">
+      <div class="wide-container">
+        <div class="section-heading centered-heading">
+          <span class="pill">Few-shot personalized retrieval</span>
+          <h2 id="fewshot-heading">Additional views provide complementary evidence</h2>
+          <p class="section-intro">
+            Each reference is stored in memory, allowing candidate images to attend jointly to multiple views of the same instance without retraining the model.
+          </p>
+        </div>
+
+        <figure class="figure-card">
+          <div class="figure-scroll">
+            <a class="figure-link" href="assets/foundyou_fewshot.png" target="_blank" rel="noopener" aria-label="Open the few-shot retrieval examples at full resolution">
+              <img src="assets/foundyou_fewshot.png" alt="Examples comparing one-shot and four-shot personalized retrieval rankings." class="main-figure detail-figure">
+            </a>
+          </div>
+          <p class="scroll-hint">Swipe horizontally to inspect all examples.</p>
+          <figcaption>
+            With one reference, a hard negative can occupy the first rank. Adding three views of the same instance moves the true positive to rank one across all shown examples.
+          </figcaption>
+        </figure>
+
+        <div class="shot-summary">
+          <div class="shot-stat">
+            <span class="shot-label">1 reference</span>
+            <strong>30.1</strong>
+            <span>mAP@1k on ILIAS</span>
+          </div>
+          <div class="shot-arrow" aria-hidden="true">→</div>
+          <div class="shot-stat featured-stat">
+            <span class="shot-label">4 references</span>
+            <strong>34.2</strong>
+            <span>mAP@1k on ILIAS</span>
+          </div>
+          <div class="shot-gain">
+            <strong>+4.1</strong>
+            <span>mAP from additional views</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="analysis-heading">
+      <div class="wide-container">
+        <div class="section-heading centered-heading">
+          <span class="pill">Feature analysis · <a href="https://arxiv.org/abs/2107.01889">Object-Placement</a></span>
+          <h2 id="analysis-heading">Adaptation removes SAM 2’s continuity bias</h2>
+          <p class="section-intro">
+            Video pretraining encourages SAM 2 features to depend on a stable scene and limited object motion. FoundYou adapts those features for identity matching when position and context change independently.
+          </p>
+        </div>
+
+        <figure class="figure-card">
+          <div class="figure-scroll">
+            <a class="figure-link" href="assets/foundyou_analysis.png" target="_blank" rel="noopener" aria-label="Open the Object-Placement feature analysis at full resolution">
+              <img src="assets/foundyou_analysis.png" alt="Object-Placement analysis comparing frozen SAM 2 and FoundYou feature similarity under object translation and background changes." class="main-figure analysis-figure">
+            </a>
+          </div>
+          <p class="scroll-hint">Swipe horizontally to inspect all three analyses.</p>
+          <figcaption>
+            <strong>Same-instance feature similarity on <a href="https://arxiv.org/abs/2107.01889">Object-Placement</a>.</strong> Frozen SAM 2 features degrade under object translation, background replacement, and their combination. FoundYou’s adapted features remain substantially more invariant across all three changes.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section results-section" aria-labelledby="results-heading">
+      <div class="page-container">
+        <div class="section-heading centered-heading light-heading">
+          <span class="pill light-pill">Main results</span>
+          <h2 id="results-heading">State of the art across both personalized tasks</h2>
+          <p class="section-intro">
+            One 52 M-parameter model improves over the prior unified solution while matching or surpassing specialized methods.
+          </p>
+        </div>
+
+        <div class="metric-callouts">
+          <article class="metric-card">
+            <strong>+18.4</strong>
+            <span>mIoU over <a class="inline-paper-link" href="https://arxiv.org/abs/2405.18025">PDM</a> on PerMIS</span>
+          </article>
+          <article class="metric-card">
+            <strong>+17.8</strong>
+            <span>mAP over <a class="inline-paper-link" href="https://arxiv.org/abs/2405.18025">PDM</a> on ILIAS</span>
+          </article>
+          <article class="metric-card">
+            <strong>90.2</strong>
+            <span>images/s on an RTX 4090</span>
+          </article>
+          <article class="metric-card">
+            <strong>5.9 M</strong>
+            <span>trainable parameters</span>
+          </article>
+        </div>
+
+        <div class="results-panel">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Benchmark</th>
+                  <th>Metric</th>
+                  <th>FoundYou</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Personalized segmentation</td>
+                  <td>PerSeg</td>
+                  <td>mIoU / bIoU</td>
+                  <td><strong>96.4 / 85.6</strong></td>
+                </tr>
+                <tr>
+                  <td>Personalized segmentation</td>
+                  <td>PerMIS</td>
+                  <td>mIoU / bIoU</td>
+                  <td><strong>62.6 / 57.4</strong></td>
+                </tr>
+                <tr>
+                  <td>Personalized retrieval</td>
+                  <td>PerMIR</td>
+                  <td>mAP</td>
+                  <td><strong>92.1</strong></td>
+                </tr>
+                <tr>
+                  <td>Personalized retrieval</td>
+                  <td>ILIAS</td>
+                  <td>mAP@1k</td>
+                  <td><strong>32.5</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="efficiency-note">
+            <span class="efficiency-icon" aria-hidden="true">⚡</span>
+            <p>
+              FoundYou is <strong>over 75× faster</strong> and <strong>20× smaller</strong> than <a class="inline-paper-link" href="https://arxiv.org/abs/2405.18025">PDM</a>, the only prior unified personalized segmentation and retrieval solution.
+            </p>
+          </div>
+        </div>
+
+        <div class="prompt-panel">
+          <div>
+            <p class="card-kicker">Flexible prompting</p>
+            <h3>Strong masks from lightweight annotations</h3>
+            <p>On PerSeg, performance changes only slightly from a full mask to a single point. On the harder PerMIS benchmark, FoundYou remains substantially stronger than prior personalized methods across prompt types.</p>
+          </div>
+          <div class="prompt-grid" aria-label="Promptable segmentation mIoU results">
+            <div class="prompt-column">
+              <span>Point</span>
+              <strong>95.2</strong>
+              <small>PerSeg</small>
+              <strong>58.6</strong>
+              <small>PerMIS</small>
+            </div>
+            <div class="prompt-column">
+              <span>Box</span>
+              <strong>95.9</strong>
+              <small>PerSeg</small>
+              <strong>61.5</strong>
+              <small>PerMIS</small>
+            </div>
+            <div class="prompt-column active-prompt">
+              <span>Mask</span>
+              <strong>96.4</strong>
+              <small>PerSeg</small>
+              <strong>62.6</strong>
+              <small>PerMIS</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft-section" id="citation" aria-labelledby="citation-heading">
+      <div class="narrow-container">
+        <div class="section-heading centered-heading">
+          <span class="pill">Citation</span>
+          <h2 id="citation-heading">BibTeX</h2>
+        </div>
+
+        <div class="citation-card">
+          <button class="copy-button" type="button" data-copy-target="bibtex-code">Copy</button>
+          <pre><code id="bibtex-code">@inproceedings{trivigno2026foundyou,
+  title     = {{FoundYou}: A Unified Model for Personalized Segmentation and Retrieval},
+  author    = {Gabriele Trivigno and Marcos Alfaro and Claudia Cuttano and Gabriele Berton and Luis Pay{\'a} and Carlo Masone},
+  booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
+  year      = {2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section acknowledgments" aria-labelledby="acknowledgments-heading">
+      <div class="narrow-container">
+        <h2 id="acknowledgments-heading">Acknowledgments</h2>
+        <p>
+          FoundYou builds on the open-source <a href="https://github.com/facebookresearch/sam2">Segment Anything 2</a> project and evaluates large-scale personalized retrieval using <a href="https://github.com/ilias-vrg/ilias">ILIAS</a>. We thank the authors and contributors of these projects.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="page-container footer-content">
+      <p><strong>FoundYou</strong> · Personalized segmentation and retrieval in one model.</p>
+      <a href="#top" id="back-to-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="static/js/index.js"></script>
+</body>
+</html>
