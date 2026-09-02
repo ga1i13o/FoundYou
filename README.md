@@ -3,7 +3,7 @@
 # FoundYou: A Unified Model for Personalized Segmentation and Retrieval
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/Paper-arXiv-red?style=flat-square&labelColor=444444" alt="Paper arXiv"></a>
+  <a href="https://arxiv.org/abs/2608.29917v1"><img src="https://img.shields.io/badge/Paper-arXiv-red?style=flat-square&labelColor=444444" alt="Paper arXiv"></a>
   <a href="https://ga1i13o.github.io/FoundYou/"><img src="https://img.shields.io/badge/Project-Page-1f6feb?style=flat-square&labelColor=444444" alt="Project Page"></a>
   <a href="https://gmberton.github.io/demos-url/foundyou/"><img src="https://img.shields.io/badge/Gradio-Demo-FFA500?style=flat-square&labelColor=444444" alt="Gradio Demo"></a>
   <a href="#"><img src="https://img.shields.io/badge/Colab-Notebook-28a745?style=flat-square&labelColor=444444" alt="Colab Notebook"></a>
@@ -39,7 +39,7 @@ Give FoundYou **one example of your object**: **segment** it in new images or **
 
 
 
-https://github.com/user-attachments/assets/e27b1e17-5ae1-46f9-8eb5-5dad920b0781
+https://github.com/user-attachments/assets/4a8eea53-8780-4f56-9e24-b4db6f667bf5
 
 
 Experience FoundYou directly in your browser with our **[interactive Gradio demo](https://gmberton.github.io/demos-url/foundyou/)**! Upload an image, select your object, and segment it or retrieve similar items from a gallery of 100M images (no installation required).
@@ -136,7 +136,7 @@ Main arguments:
 ### Few-shot reranking
 
 FoundYou can use multiple views of the same object at inference time. 
-Make sure you have downloaded the JSON metadata for the few-shot setting (see DATA.md [link])
+Make sure you have downloaded the JSON metadata for the few-shot setting (see [docs/DATA.md](docs/DATA.md#1-download-ilias))
 
 ```bash
 python inference_reranking.py \
