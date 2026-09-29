@@ -13,11 +13,9 @@ from metrics.segmentation import BinarySegmentationEvaluator, BinarySegmentation
 from datasets import build_dataset
 
 """
-python inference_pers_seg.py --dataset_file perseg \
-    --checkpoint ./pretrain/foundyou.pth
+python inference_pers_seg.py --dataset_file perseg
 
-python inference_pers_seg.py --dataset_file permis \
-    --checkpoint ./pretrain/foundyou.pth
+python inference_pers_seg.py --dataset_file permis
 
 """
 

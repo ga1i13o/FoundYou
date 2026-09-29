@@ -4,6 +4,8 @@
 
 <p align="center">
   <a href="https://arxiv.org/abs/2608.29917v1"><img src="https://img.shields.io/badge/Paper-arXiv-red?style=flat-square&labelColor=444444" alt="Paper arXiv"></a>
+  <a href="https://huggingface.co/papers/2608.29917"><img src="https://img.shields.io/badge/Paper-Hugging%20Face-FFD21E?style=flat-square&labelColor=444444&logo=huggingface" alt="Paper Hugging Face"></a>
+  <a href="https://huggingface.co/gabTriv/FoundYou"><img src="https://img.shields.io/badge/Model-Hugging%20Face-FFD21E?style=flat-square&labelColor=444444&logo=huggingface" alt="Model Hugging Face"></a>
   <a href="https://ga1i13o.github.io/FoundYou/"><img src="https://img.shields.io/badge/Project-Page-1f6feb?style=flat-square&labelColor=444444" alt="Project Page"></a>
   <a href="https://gmberton.github.io/demos-url/foundyou/"><img src="https://img.shields.io/badge/Gradio-Demo-FFA500?style=flat-square&labelColor=444444" alt="Gradio Demo"></a>
   <a href="#"><img src="https://img.shields.io/badge/Colab-Notebook-28a745?style=flat-square&labelColor=444444" alt="Colab Notebook"></a>
@@ -59,14 +61,19 @@ pip install -r requirements.txt
 ## 📥 Model Weights
 
 FoundYou uses a **frozen SAM 2-small backbone**. Its pretrained weights are downloaded automatically the first time the model is built.   
-Download the [FoundYou checkpoint](https://drive.google.com/file/d/1o_P5myXJiXH9wOhl95YQZ179xUgkIwhk/view):
+The FoundYou weights are hosted on [Hugging Face](https://huggingface.co/gabTriv/FoundYou) and are downloaded automatically too (`--checkpoint` defaults to `gabTriv/FoundYou`).
+On machines without internet access, use a local copy (below) or set `HF_HUB_OFFLINE=1` once the weights are in the Hugging Face cache.
+
+To use a local copy, pass a `.safetensors` file or a folder containing `model.safetensors` to `--checkpoint`, for example:
 
 ```bash
-mkdir -p pretrain
-cd pretrain
-gdown "https://drive.google.com/uc?id=1o_P5myXJiXH9wOhl95YQZ179xUgkIwhk" -O foundyou.pth
-cd ..
+hf download gabTriv/FoundYou --local-dir pretrain/foundyou
+python inference_pers_seg.py \
+  --dataset_file perseg \
+  --checkpoint pretrain/foundyou
 ```
+
+`--checkpoint` also accepts the `foundyou.pth` file previously downloaded from Google Drive, e.g. `--checkpoint ./pretrain/foundyou.pth`.
 
 ## 🗂️ Data
 
@@ -80,23 +87,21 @@ FoundYou takes one or more prompted reference images and segments the same physi
 
 ```bash
 python inference_pers_seg.py \
-  --dataset_file perseg \
-  --checkpoint ./pretrain/foundyou.pth
+  --dataset_file perseg
 ```
 
 ### PerMIS
 
 ```bash
 python inference_pers_seg.py \
-  --dataset_file permis \
-  --checkpoint ./pretrain/foundyou.pth
+  --dataset_file permis
 ```
 
 Main arguments:
 
 - `--dataset_file`: segmentation benchmark (`perseg` or `permis`)
 - `--prompt`: reference prompt type (`mask`, `box`, or `point`; default: `mask`)
-- `--checkpoint`: FoundYou checkpoint path
+- `--checkpoint`: FoundYou weights: a Hugging Face repo id (default: `gabTriv/FoundYou`), a local `.safetensors` or `.pth` file, or a folder containing `model.safetensors`
 
 ## 🔍 Personalized Retrieval
 
@@ -108,8 +113,7 @@ PerMIR is evaluated by reranking its complete 432-image gallery, so it does not 
 
 ```bash
 python inference_reranking.py \
-  --dataset_file permir \
-  --checkpoint ./pretrain/foundyou.pth
+  --dataset_file permir
 ```
 
 ### ILIAS
@@ -119,7 +123,6 @@ ILIAS contains 100 M distractors. First prepare the retrieval shortlist and extr
 ```bash
 python inference_reranking.py \
   --dataset_file ilias \
-  --checkpoint ./pretrain/foundyou.pth \
   --candidates_dir ilias_candidates_siglip_100M_top1k \
   --retrieval_file retrieval_candidates_vit_large_patch16_siglip_384.webli_100M_top1000.pkl \
   --top_n 100
@@ -131,7 +134,7 @@ Main arguments:
 - `--candidates_dir`: directory containing the extracted ILIAS candidates
 - `--retrieval_file`: initial retrieval shortlist; required for ILIAS
 - `--top_n`: number of candidates reranked per query
-- `--checkpoint`: FoundYou checkpoint path
+- `--checkpoint`: FoundYou weights: a Hugging Face repo id (default: `gabTriv/FoundYou`), a local `.safetensors` or `.pth` file, or a folder containing `model.safetensors`
 
 ### Few-shot reranking
 
@@ -141,7 +144,6 @@ Make sure you have downloaded the JSON metadata for the few-shot setting (see [d
 ```bash
 python inference_reranking.py \
   --dataset_file ilias \
-  --checkpoint ./pretrain/foundyou.pth \
   --candidates_dir ilias_candidates_siglip_100M_top1k \
   --retrieval_file retrieval_candidates_vit_large_patch16_siglip_384.webli_100M_top1000.pkl \
   --shots 4 \
@@ -173,11 +175,15 @@ FoundYou achieves state-of-the-art results across personalized segmentation and 
 If you find this work useful in your research, please cite:
 
 ```bibtex
-@article{trivigno2026foundyou,
+@inproceedings{trivigno2026foundyou,
   title     = {{FoundYou}: A Unified Model for Personalized Segmentation and Retrieval},
   author    = {Gabriele Trivigno and Marcos Alfaro and Claudia Cuttano and Gabriele Berton and Luis Pay{\'a} and Carlo Masone},
-  booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
-  year      = {2026}
+  booktitle = {Computer Vision -- ECCV 2026},
+  pages     = {585--604},
+  year      = {2026},
+  publisher = {Springer Nature Switzerland},
+  address   = {Cham},
+  doi       = {10.1007/978-3-032-37041-9_31}
 }
 ```
 

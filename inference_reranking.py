@@ -26,15 +26,13 @@ from util.retrieval_utils import (
 """
 PerMIR
 python inference_reranking.py \
-    --dataset_file permir \
-    --checkpoint ./pretrain/foundyou.pth
+    --dataset_file permir
 
 ILIAS:
 Note: Requires a pre-extracted candidates directory created by scripts/extract_ilias_candidates.py
 python inference_reranking.py --dataset_file ilias \
     --candidates_dir ilias_candidates_siglip_100M_top1k \
     --retrieval_file retrieval_candidates_vit_large_patch16_siglip_384.webli_100M_top1000.pkl \
-    --checkpoint ./pretrain/foundyou.pth \
     --top_n 20
 """
 
