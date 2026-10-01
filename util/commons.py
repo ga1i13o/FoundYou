@@ -89,15 +89,35 @@ def make_deterministic(seed: int = 0):
 
 
 def load_checkpoint(checkpoint_path, model):
+    """Load the FoundYou weights from a Hugging Face repo id (e.g. gabTriv/FoundYou),
+    a local .safetensors or .pth file, or a local folder containing model.safetensors."""
     if not checkpoint_path:
         print('No checkpoint provided.')
         return model
 
-    checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
-    if list(checkpoint['model'].keys())[0].startswith('module'):
-        checkpoint['model'] = {k.replace('module.', ''): v for k, v in checkpoint['model'].items()}        
+    checkpoint_path = str(checkpoint_path)
+    if os.path.isdir(checkpoint_path):
+        checkpoint_file = join(checkpoint_path, 'model.safetensors')
+    elif os.path.isfile(checkpoint_path) or checkpoint_path.endswith(('.safetensors', '.pth', '.pt', '.ckpt', '.bin')):
+        checkpoint_file = checkpoint_path
+    else:
+        # Hugging Face repo id. The Hub counts downloads through requests to config.json.
+        from huggingface_hub import hf_hub_download
+        hf_hub_download(checkpoint_path, 'config.json')
+        checkpoint_file = hf_hub_download(checkpoint_path, 'model.safetensors')
+    if not os.path.isfile(checkpoint_file):
+        raise FileNotFoundError(f'Checkpoint not found: {checkpoint_file}')
 
-    model.load_state_dict(checkpoint['model'], strict=False)
+    if checkpoint_file.endswith('.safetensors'):
+        from safetensors.torch import load_file
+        state_dict = load_file(checkpoint_file)
+    else:
+        checkpoint = torch.load(checkpoint_file, map_location='cpu', weights_only=False)
+        if list(checkpoint['model'].keys())[0].startswith('module'):
+            checkpoint['model'] = {k.replace('module.', ''): v for k, v in checkpoint['model'].items()}
+        state_dict = checkpoint['model']
+
+    model.load_state_dict(state_dict, strict=False)
     print(f'Loaded checkpoint from {checkpoint_path}.')
 
     return model

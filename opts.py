@@ -8,7 +8,7 @@ def get_args_parser() -> argparse.ArgumentParser:
     # General
     parser.add_argument("--seed", type=int, default=0, help="Random seed.")
     parser.add_argument("--device", type=str, default="cuda", help="Compute device.")
-    parser.add_argument("--checkpoint", type=str, help="Path to the FoundYou checkpoint.")
+    parser.add_argument("--checkpoint", type=str, default="gabTriv/FoundYou", help="FoundYou weights: a Hugging Face repo id (default), a local .safetensors or .pth file, or a folder containing model.safetensors.")
 
     # Experiment I/O
     parser.add_argument("--output_dir", type=str, default="output", help="Root directory for outputs.")

@@ -25,6 +25,8 @@ einops
 tqdm
 py3_wget
 requests>=2.31.0
+huggingface_hub
+safetensors
 
 # Jupyter notebook support
 jupyter
